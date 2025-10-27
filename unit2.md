@@ -1,409 +1,1014 @@
+---
+
 ## **Unit 2: Collections & Functions - Master Study Notes**
 
-### **1. Introduction to Data Structures in Python**
+This unit covers Python's core data structures (collections) and the powerful concept of functions, which are essential for writing organized, reusable, and efficient code.
 
-A **data structure** is a specialized format for organizing, processing, retrieving, and storing data. Python has several powerful built-in data structures.
+### **1. General Introduction to Data Structures**
 
-#### **1.1. Classification of Data Structures**
+A **data structure** is a way of organizing and storing data so that it can be accessed and modified efficiently.
 
-- **Sequential Data Structures:** Store elements in a defined order. You can access elements using their position or **index**.
-  - **Examples:** Lists, Tuples, Strings.
-- **Non-Sequential Data Structures:** Store elements without a specific order. Access is typically done through a **key** or by iterating over the collection.
-  - **Examples:** Dictionaries, Sets.
-
-#### **1.2. Common Operations on Collections**
-
-| Operation                     | Description                                     | Applies To             |
-| :---------------------------- | :---------------------------------------------- | :--------------------- |
-| **Indexing `[ ]`**            | Access an element at a specific position.       | Lists, Tuples, Strings |
-| **Slicing `[ : ]`**           | Extract a subsequence from the collection.      | Lists, Tuples, Strings |
-| **Concatenation `+`**         | Combine two collections of the same type.       | Lists, Tuples, Strings |
-| **Repetition `*`**            | Repeat the contents of a collection.            | Lists, Tuples, Strings |
-| **Membership `in`, `not in`** | Check if an element exists within a collection. | All Collections        |
-| **`len()`**                   | Get the number of items in a collection.        | All Collections        |
-| **`min()`, `max()`**          | Get the minimum or maximum item.                | All Collections        |
-| **`sum()`**                   | Get the sum of all numeric items.               | Lists, Tuples, Sets    |
+- **Sequential vs. Non-Sequential:**
+  - **Sequential:** Elements are stored in a specific order and can be accessed via an index (e.g., lists, tuples, strings).
+  - **Non-Sequential:** Elements are not stored in a particular order. Access is often via a key (e.g., dictionaries) or by membership (e.g., sets).
+- **Mutability:**
+  - **Mutable:** The object's contents can be changed after it is created (e.g., lists, dictionaries, sets).
+  - **Immutable:** The object's contents cannot be changed after creation (e.g., tuples, strings, numbers).
 
 ---
 
-### **2. Lists: The Mutable Workhorse**
+### **Function Reference: Built-in Functions for Collections**
 
-A list is an **ordered and mutable** collection of items. It is one of the most versatile data structures in Python.
+These functions work on many different types of collections.
 
-#### **2.1. Key Characteristics of Lists**
+---
 
-- **Ordered:** The items in a list have a defined order, and that order will not change unless you modify it.
-- **Mutable:** You can change, add, and remove items in a list after it has been created.
-- **Heterogeneous:** A single list can contain items of different data types (e.g., integers, strings, and even other lists).
-- **Allows Duplicates:** Lists can contain multiple occurrences of the same value.
-- **Iterable (Eager):** A list is an "eager" object, meaning all its elements are created and stored in memory at once when the list is defined.
+##### **Function: `len()`**
 
-#### **2.2. Creating Lists**
-
-```python
-# Create an empty list
-empty_list_a = []
-empty_list_b = list()
-
-# Create a list with items
-my_list = [1, "hello", 3.14, True]
-
-# Create a list from another iterable
-list_from_tuple = list((1, 2, 3)) # -> [1, 2, 3]
-```
-
-#### **2.3. Accessing and Modifying List Items**
-
-- **Indexing:** Access an item by its position. Indexing starts at **0**.
+- **Syntax:** `len(collection)`
+- **Purpose:** Returns the number of items in a collection.
+- **Parameters:**
+  - `collection`: A sequence (string, list, tuple) or collection (dictionary, set).
+- **Returns:** An **integer** representing the item count.
+- **Example from material:**
   ```python
-  numbers = [10, 20, 30, 40]
-  print(numbers[0])   # Output: 10
-  print(numbers[-1])  # Negative indexing: gets the last item. Output: 40
+  nums = [3, 41, 12, 9, 74, 15]
+  print(len(nums))
   ```
-- **Modifying:** Since lists are mutable, you can change an item directly.
+- **Additional examples:**
+  ```python
+  print(len("Python"))
+  print(len({'name': 'John', 'age': 30})) # Counts key-value pairs
+  ```
+- **Output:**
+  ```
+  6
+  6
+  2
+  ```
+- **Notes:** This is one of the most frequently used functions. For dictionaries, it counts the number of key-value pairs.
+
+---
+
+##### **Function: `max()`**
+
+- **Syntax:** `max(iterable)`
+- **Purpose:** Returns the largest item in an iterable.
+- **Parameters:**
+  - `iterable`: A collection of comparable items (e.g., all numbers or all strings).
+- **Returns:** The largest item from the iterable.
+- **Example from material:**
+  ```python
+  nums = [3, 41, 12, 9, 74, 15]
+  print(max(nums))
+  ```
+- **Additional examples:**
+  ```python
+  print(max("python")) # Based on Unicode value, 'y' is the largest
+  print(max({10, 50, 20}))
+  ```
+- **Output:**
+  ```
+  74
+  y
+  50
+  ```
+- **Notes:** This will raise a `TypeError` if you try to compare items of incompatible types, like a number and a string (`max([1, 'a'])` will fail).
+
+---
+
+##### **Function: `min()`**
+
+- **Syntax:** `min(iterable)`
+- **Purpose:** Returns the smallest item in an iterable.
+- **Parameters:**
+  - `iterable`: A collection of comparable items.
+- **Returns:** The smallest item from the iterable.
+- **Example from material:**
+  ```python
+  nums = [3, 41, 12, 9, 74, 15]
+  print(min(nums))
+  ```
+- **Additional examples:**
+  ```python
+  print(min("Python")) # Based on Unicode value, 'P' is the smallest
+  ```
+- **Output:**
+  ```
+  3
+  P
+  ```
+- **Notes:** Same `TypeError` rules as `max()` apply.
+
+---
+
+##### **Function: `sum()`**
+
+- **Syntax:** `sum(iterable, start=0)`
+- **Purpose:** Returns the sum of all items in an iterable.
+- **Parameters:**
+  - `iterable`: A collection of numeric items.
+  - `start` (optional): A value that is added to the sum. Defaults to 0.
+- **Returns:** A **number** (integer or float) representing the sum.
+- **Example from material:**
+  ```python
+  nums = [3, 41, 12, 9, 74, 15]
+  print(sum(nums))
+  ```
+- **Additional examples:**
+  ```python
+  # Using the start parameter
+  print(sum([10, 20, 30], 5)) # (10 + 20 + 30) + 5
+  ```
+- **Output:**
+  ```
+  154
+  65
+  ```
+- **Notes:** This function will raise a `TypeError` if the iterable contains non-numeric types. It cannot be used on a list of strings.
+
+---
+
+##### **Function: `sorted()`**
+
+- **Syntax:** `sorted(iterable, reverse=False)`
+- **Purpose:** Returns a **new sorted list** from the items in an iterable.
+- **Parameters:**
+  - `iterable`: The collection to sort.
+  - `reverse` (optional): If `True`, the list is sorted in descending order.
+- **Returns:** A **new list** containing the sorted items.
+- **Example from material (for Tuples):**
+  ```python
+  tuple1 = ('rama', 'shama', 'bhama', 'balarama')
+  print(sorted(tuple1))
+  ```
+- **Additional examples:**
 
   ```python
-  numbers[1] = 25 # The list is now [10, 25, 30, 40]
+  my_set = {10, 1, 100}
+  print(sorted(my_set, reverse=True))
+
+  my_dict = {'b': 1, 'a': 2}
+  print(sorted(my_dict)) # Sorts the keys by default
   ```
 
-- **Slicing:** Extract a new sub-list from the original.
-  - **Syntax:** `my_list[start:stop:step]`
-  - `start`: The index to begin the slice (inclusive).
-  - `stop`: The index to end the slice (exclusive).
-  - `step`: The interval between indices.
-  ```python
-  numbers = [0, 1, 2, 3, 4, 5, 6]
-  print(numbers[2:5])     # Output: [2, 3, 4]
-  print(numbers[:3])      # Output: [0, 1, 2] (from the start)
-  print(numbers[3:])      # Output: [3, 4, 5, 6] (to the end)
-  print(numbers[::2])     # Output: [0, 2, 4, 6] (every second element)
-  print(numbers[::-1])    # Output: [6, 5, 4, 3, 2, 1, 0] (reverses the list)
+- **Output:**
   ```
+  ['balarama', 'bhama', 'rama', 'shama']
+  [100, 10, 1]
+  ['a', 'b']
+  ```
+- **Notes (Mastery Focus):** **`sorted()` vs `.sort()`**
+  - `sorted()` is a built-in function that works on **any iterable** (list, tuple, set, dict) and **returns a new sorted list**. It does not modify the original.
+  - `.sort()` is a **list method** that sorts the list **in-place**. It modifies the original list and returns `None`. You cannot use `.sort()` on a tuple or set.
 
-#### **2.4. Important List Methods**
+---
 
-| Method                    | Description                                                                                                        | Example                        |
-| :------------------------ | :----------------------------------------------------------------------------------------------------------------- | :----------------------------- |
-| **`append(item)`**        | Adds an item to the **end** of the list.                                                                           | `my_list.append(5)`            |
-| **`insert(index, item)`** | Inserts an item at a specified index.                                                                              | `my_list.insert(1, "new")`     |
-| **`extend(iterable)`**    | Appends all items from an iterable to the list.                                                                    | `my_list.extend([6, 7])`       |
-| **`remove(item)`**        | Removes the **first** occurrence of an item.                                                                       | `my_list.remove("hello")`      |
-| **`pop(index)`**          | Removes and returns the item at a given index. If no index is specified, it removes and returns the **last** item. | `item = my_list.pop(0)`        |
-| **`clear()`**             | Removes all items from the list.                                                                                   | `my_list.clear()`              |
-| **`sort()`**              | Sorts the list in place (modifies the original list).                                                              | `numbers.sort()`               |
-| **`reverse()`**           | Reverses the order of the list in place.                                                                           | `numbers.reverse()`            |
-| **`index(item)`**         | Returns the index of the first occurrence of an item.                                                              | `idx = my_list.index("hello")` |
-| **`count(item)`**         | Returns the number of times an item appears in the list.                                                           | `c = my_list.count(5)`         |
+### **2. Lists**
 
-#### **2.5. Copying Lists: A Common Pitfall**
+Lists are ordered, mutable collections that allow duplicate, heterogeneous elements.
 
-> **Mastery Tip:** Understanding the difference between a reference and a copy is crucial.
+---
 
-- **Assignment (Reference):** `list_b = list_a` does **not** create a new list. It just makes `list_b` another name (reference) for the _same_ list object. Changing one will affect the other.
+#### **Function Reference: List Methods**
 
-- **Copying (New Object):** To create a true, independent copy, use slicing or the `.copy()` method.
+---
 
+##### **Method: `append()`**
+
+- **Syntax:** `list.append(item)`
+- **Purpose:** Adds a single item to the end of the list.
+- **Parameters:**
+  - `item`: The object to add to the end of the list.
+- **Returns:** `None`. It modifies the list in-place.
+- **Example from material:**
   ```python
-  list_a = [1, 2, 3]
+  list1 = [10, 20, 30, 40, 50]
+  list1.append(22)
+  print(list1)
+  ```
+- **Output:** `[10, 20, 30, 40, 50, 22]`
+- **Notes:** If you append another list, it becomes a single, nested element: `[1, 2].append([3, 4])` results in `[1, 2, [3, 4]]`. Use `extend()` to add elements individually.
 
-  # Method 1: Slicing (most common)
-  list_b = list_a[:]
+---
 
-  # Method 2: .copy() method
-  list_c = list_a.copy()
+##### **Method: `insert()`**
 
-  list_b[0] = 99
-  print(list_a) # Output: [1, 2, 3] (original is unaffected)
-  print(list_b) # Output: [99, 2, 3]
+- **Syntax:** `list.insert(index, item)`
+- **Purpose:** Inserts an item at a specific position.
+- **Parameters:**
+  - `index`: The integer index where the item should be inserted.
+  - `item`: The object to insert.
+- **Returns:** `None`. It modifies the list in-place.
+- **Example from material:**
+  ```python
+  list1 = [10, 20, 30, 40, 50]
+  list1.insert(3, 55)
+  print(list1)
+  ```
+- **Output:** `[10, 20, 30, 55, 40, 50]`
+
+---
+
+##### **Method: `extend()`**
+
+- **Syntax:** `list.extend(iterable)`
+- **Purpose:** Adds all the items from an iterable (like another list, tuple, or string) to the end of the current list.
+- **Parameters:**
+  - `iterable`: The collection whose elements are to be added.
+- **Returns:** `None`. It modifies the list in-place.
+- **Example from material:**
+  ```python
+  list1 = [10, 20, 30, 40, 50]
+  list1.extend([11, 22, 33, 44, 55])
+  print(list1)
+  ```
+- **Additional examples:**
+  ```python
+  my_list = [1, 2]
+  my_list.extend("abc") # A string is an iterable of characters
+  print(my_list)
+  ```
+- **Output:**
+  ```
+  [10, 20, 30, 40, 50, 11, 22, 33, 44, 55]
+  [1, 2, 'a', 'b', 'c']
+  ```
+- **Notes:** `+` vs `extend()`: `my_list + another_list` creates a _new_ list, while `extend()` modifies the original list in-place, which is more memory-efficient.
+
+---
+
+##### **Method: `remove()`**
+
+- **Syntax:** `list.remove(value)`
+- **Purpose:** Removes the **first** occurrence of the specified value.
+- **Parameters:**
+  - `value`: The value to be removed.
+- **Returns:** `None`.
+- **Example from material:**
+  ```python
+  list1 = [10, 20, 30, 40, 50]
+  list1.remove(40)
+  print(list1)
+  ```
+- **Output:** `[10, 20, 30, 50]`
+- **Notes:** If the value is not found, it raises a `ValueError`.
+
+---
+
+##### **Method: `pop()`**
+
+- **Syntax:** `list.pop(index=-1)`
+- **Purpose:** Removes and **returns** the item at a given index.
+- **Parameters:**
+  - `index` (optional): The index of the item to remove. If not specified, it removes the last item.
+- **Returns:** The removed item.
+- **Example from material:**
+  ````python
+  list1 = [10, 20, 30, 40, 50]
+  list1.pop(2) # Removes the item at index 2 (which is 30)
+  print(list1)
+  ```*   **Output:** `[10, 20, 40, 50]`
+  ````
+- **Notes:** `remove()` works with the _value_, while `pop()` works with the _index_. `pop()` is useful when you want to use the removed item.
+
+---
+
+##### **Method: `clear()`**
+
+- **Syntax:** `list.clear()`
+- **Purpose:** Removes all items from the list, making it empty.
+- **Returns:** `None`.
+- **Example:**
+  ```python
+  my_list = [1, 2, 3]
+  my_list.clear()
+  print(my_list)
+  ```
+- **Output:** `[]`
+
+---
+
+##### **Method: `index()`**
+
+- **Syntax:** `list.index(value, start=0, stop=len(list))`
+- **Purpose:** Returns the index of the first occurrence of a value.
+- **Parameters:**
+  - `value`: The value to search for.
+  - `start`, `stop` (optional): Search within a specific slice of the list.
+- **Returns:** An **integer** index.
+- **Example from material:**
+  ```python
+  list1 = [10, 20, 30, 40, 50]
+  print(list1.index(20))
+  ```
+- **Output:** `1`
+- **Notes:** If the value is not found, it raises a `ValueError`.
+
+---
+
+##### **Method: `count()`**
+
+- **Syntax:** `list.count(value)`
+- **Purpose:** Returns the number of times a value appears in the list.
+- **Returns:** An **integer**.
+- **Example from material:**
+  ```python
+  list1 = [10, 20, 30, 40, 50, 20]
+  print(list1.count(20))
+  ```
+- **Output:** `2`
+
+---
+
+##### **Method: `sort()`**
+
+- **Syntax:** `list.sort(reverse=False)`
+- **Purpose:** Sorts the list **in-place**.
+- **Parameters:**
+  - `reverse` (optional): If `True`, sorts in descending order.
+- **Returns:** `None`.
+- **Example from material:**
+  ```python
+  list1 = [10, 1, -2, 2, 9]
+  list1.sort()
+  print(list1)
+  ```
+- **Output:** `[-2, 1, 2, 9, 10]`
+- **Notes:** See the `sorted()` function for the crucial difference.
+
+---
+
+##### **Method: `reverse()`**
+
+- **Syntax:** `list.reverse()`
+- **Purpose:** Reverses the elements of the list **in-place**.
+- **Returns:** `None`.
+- **Example:**
+  ```python
+  my_list = [1, 2, 3]
+  my_list.reverse()
+  print(my_list)
+  ```
+- **Output:** `[3, 2, 1]`
+
+---
+
+##### **Method: `copy()`**
+
+- **Syntax:** `list.copy()`
+- **Purpose:** Returns a shallow copy of the list.
+- **Returns:** A **new list** object.
+- **Example:**
+  ```python
+  list_a = [1, 2]
+  list_b = list_a.copy()
+  print(list_a is list_b) # Check if they are the same object
+  ```
+- **Output:** `False`
+- **Notes:** This is crucial to avoid unintended modification of the original list. `new_list = old_list[:]` is an alternative way to create a shallow copy.
+
+---
+
+### **3. Tuples**
+
+Tuples are ordered, **immutable** collections. They are like "read-only" lists.
+
+- **Benefits:** Faster than lists, can be used as dictionary keys, and protect data from accidental changes.
+- **MCQ Analysis:** The question "Can tuple be used as dictionary key in python?" is **True**. This is a primary use case for tuples, as dictionary keys must be immutable.
+
+---
+
+#### **Function Reference: Tuple Methods**
+
+Because tuples are immutable, they have very few methods.
+
+---
+
+##### **Method: `count()`**
+
+- **Syntax:** `tuple.count(value)`
+- **Purpose:** Returns the number of times a value appears in the tuple.
+- **Returns:** An **integer**.
+- **Example from material:**
+  ```python
+  tuple1 = (10, 20, 30, 10, 40, 10, 50)
+  print(tuple1.count(10))
+  ```
+- **Output:** `3`
+
+---
+
+##### **Method: `index()`**
+
+- **Syntax:** `tuple.index(value)`
+- **Purpose:** Returns the index of the first occurrence of a value.
+- **Returns:** An **integer** index. Raises a `ValueError` if the value is not found.
+- **Example from material:**
+  ```python
+  tuple1 = (10, 20, 30, 40, 50)
+  print(tuple1.index(30))
+  ```
+- **Output:** `2`
+
+---
+
+### **4. Dictionaries**
+
+Dictionaries are unordered, mutable collections of **key-value pairs**. Keys must be unique and immutable.
+
+- **MCQ Analysis:**
+  - You access values using keys, but you **cannot access keys using values**.
+  - `Dict = dict({1: 'hello', 2: 'everyone'})` is the correct syntax for creating a dictionary from another dictionary using the `dict()` constructor.
+  - `get()` is the alternative function to access a value without causing an error if the key doesn't exist.
+
+---
+
+#### **Function Reference: Dictionary Methods**
+
+---
+
+##### **Method: `get()`**
+
+- **Syntax:** `dict.get(key, default=None)`
+- **Purpose:** Safely retrieves the value for a given key.
+- **Parameters:**
+  - `key`: The key to look for.
+  - `default` (optional): The value to return if the key is not found.
+- **Returns:** The value for the key if it exists, otherwise `default` (which is `None` if not specified).
+- **Example from material:**
+  ```python
+  phonebook = {"Johan": 938477565, "Jill": 938547565}
+  print(phonebook.get('Jill'))
+  ```
+- **Additional examples:**
+  ```python
+  print(phonebook.get('Erik')) # Key does not exist
+  print(phonebook.get('Erik', 'Not Found'))
+  ```
+- **Output:**
+  ```
+  938547565
+  None
+  Not Found
+  ```
+- **Notes:** This is the preferred way to access dictionary values when you are not sure if a key exists, as it prevents a `KeyError`.
+
+---
+
+##### **Method: `keys()`**
+
+- **Syntax:** `dict.keys()`
+- **Purpose:** Returns a view object that displays a list of all the keys in the dictionary.
+- **Returns:** A **dict_keys** view object.
+- **Example from material:**
+  ```python
+  phonebook = {"Johan": 938477565, "Jill": 938547565}
+  print(phonebook.keys())
+  ```
+- **Output:** `dict_keys(['Johan', 'Jill'])`
+- **Notes:** You can iterate directly over a dictionary (`for key in my_dict:`) which is a shortcut for iterating over `my_dict.keys()`.
+
+---
+
+##### **Method: `values()`**
+
+- **Syntax:** `dict.values()`
+- **Purpose:** Returns a view object that displays a list of all the values in the dictionary.
+- **Returns:** A **dict_values** view object.
+- **Example from material:**
+  ```python
+  marks = {'Physics': 67, 'Maths': 87}
+  print(marks.values())
+  ```
+- **Output:** `dict_values([67, 87])`
+
+---
+
+##### **Method: `items()`**
+
+- **Syntax:** `dict.items()`
+- **Purpose:** Returns a view object that displays a list of the dictionary's key-value tuple pairs.
+- **Returns:** A **dict_items** view object.
+- **Example from material:**
+  ```python
+  phonebook = {"Johan": 938477565, "Jill": 938547565}
+  print(phonebook.items())
+  ```
+- **Output:** `dict_items([('Johan', 938477565), ('Jill', 938547565)])`
+- **Notes:** This is the most efficient way to loop through both the keys and values of a dictionary simultaneously: `for key, value in my_dict.items():`.
+
+---
+
+##### **Method: `pop()`**
+
+- **Syntax:** `dict.pop(key, default)`
+- **Purpose:** Removes the specified key and returns its corresponding value.
+- **Parameters:**
+  - `key`: The key to remove.
+  - `default` (optional): If the key is not found, this value is returned instead of raising a `KeyError`.
+- **Returns:** The value of the removed key.
+- **Example from material:**
+  ```python
+  phonebook = {"Johan": 938477565, "Jill": 938547565}
+  jill_phone = phonebook.pop('Jill')
+  print(jill_phone)
+  print(phonebook)
+  ```
+- **Output:**
+  ```
+  938547565
+  {'Johan': 938477565}
   ```
 
 ---
 
-### **3. Tuples: The Immutable Sibling**
+##### **Method: `popitem()`**
 
-A tuple is an **ordered and immutable** collection of items. Think of it as a "read-only" list.
-
-#### **3.1. Key Characteristics of Tuples**
-
-- **Ordered:** Items have a defined order.
-- **Immutable:** Once a tuple is created, you **cannot** change, add, or remove items.
-- **Heterogeneous:** Can contain items of different data types.
-- **Faster than Lists:** Because they are immutable, Python can optimize their storage, making them slightly faster to access.
-
-#### **3.2. Why Use a Tuple?**
-
-1.  **Data Integrity:** When you have data that should not be changed (e.g., coordinates, RGB color values), a tuple protects it from accidental modification.
-2.  **Dictionary Keys:** Because they are immutable, tuples can be used as keys in a dictionary. Lists cannot.
-
-#### **3.3. Creating Tuples**
-
-```python
-# Create an empty tuple
-empty_tuple_a = ()
-empty_tuple_b = tuple()
-
-# Create a tuple with items
-my_tuple = (1, "hello", 3.14)
-
-# Special Case: Creating a tuple with a single item requires a trailing comma
-single_item_tuple = (1,) # Without the comma, this would just be the integer 1
-```
-
-#### **3.4. Tuple Operations**
-
-- You can access items using **indexing** and **slicing**, just like lists.
-- You can use **concatenation (`+`)** and **repetition (`*`)** to create _new_ tuples.
+- **Syntax:** `dict.popitem()`
+- **Purpose:** Removes and returns the last inserted key-value pair as a tuple.
+- **Returns:** A `(key, value)` **tuple**.
+- **Example from material:**
   ```python
-  t1 = (1, 2)
-  t2 = (3, 4)
-  t3 = t1 + t2 # t3 is a new tuple: (1, 2, 3, 4)
+  person = {'name': 'Phill', 'age': 22, 'salary': 3500.0}
+  result = person.popitem()
+  print('Return Value = ', result)
+  print('person = ', person)
   ```
-- You **cannot** use methods that modify the tuple, like `.append()`, `.remove()`, or `.sort()`.
+- **Output:**
+  ```
+  Return Value =  ('salary', 3500.0)
+  person =  {'name': 'Phill', 'age': 22}
+  ```
+- **Notes:** Raises a `KeyError` if the dictionary is empty.
 
 ---
 
-### **4. Dictionaries: Key-Value Pairs**
+##### **Method: `update()`**
 
-A dictionary is an **unordered, mutable** collection that stores data in **key-value pairs**. It's optimized for retrieving a value when you know the key.
-
-#### **4.1. Key Characteristics of Dictionaries**
-
-- **Unordered:** The items do not have a defined order (though in modern Python versions, they preserve insertion order, you should not rely on it).
-- **Mutable:** You can add, change, and remove key-value pairs.
-- **Indexed by Keys:** You access values using their associated key, not by a numerical index.
-- **Keys must be Unique and Immutable:**
-  - Each key in a dictionary must be unique.
-  - Keys must be of an immutable data type (e.g., string, number, tuple). **This is why lists cannot be keys.**
-- **Values can be anything:** Values can be of any data type and can be duplicated.
-
-#### **4.2. Creating and Accessing Dictionaries**
-
-```python
-# Create an empty dictionary
-empty_dict_a = {}
-empty_dict_b = dict()
-
-# Create a dictionary
-student = {"name": "Alice", "age": 25, "courses": ["Math", "CompSci"]}
-
-# Access a value using its key
-print(student["name"]) # Output: Alice
-
-# Add or update a key-value pair
-student["age"] = 26      # Updates the existing key
-student["id"] = "S123"   # Adds a new key-value pair
-```
-
-#### **4.3. Important Dictionary Methods**
-
-| Method                   | Description                                                                                                                                  | Example                                    |
-| :----------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------- |
-| **`get(key, default)`**  | Safely gets the value for a key. If the key doesn't exist, it returns `None` (or the specified `default` value) instead of raising an error. | `age = student.get("age", 0)`              |
-| **`keys()`**             | Returns a view object containing all the keys.                                                                                               | `for k in student.keys(): print(k)`        |
-| **`values()`**           | Returns a view object containing all the values.                                                                                             | `for v in student.values(): print(v)`      |
-| **`items()`**            | Returns a view object where each item is a `(key, value)` tuple. Best for looping.                                                           | `for k, v in student.items(): print(k, v)` |
-| **`pop(key)`**           | Removes the specified key and returns its value.                                                                                             | `name = student.pop("name")`               |
-| **`update(other_dict)`** | Merges another dictionary into the current one.                                                                                              | `student.update({"city": "New York"})`     |
+- **Syntax:** `dict.update(other_dict)`
+- **Purpose:** Updates the dictionary with key-value pairs from another dictionary or an iterable of key-value pairs.
+- **Returns:** `None`. It modifies the dictionary in-place.
+- **Example from material:**
+  ```python
+  marks = {'Physics': 67, 'Maths': 87}
+  internal_marks = {'Practical': 48}
+  marks.update(internal_marks)
+  marks.update([('Chemistry', 90)]) # Can also update from a list of tuples
+  print(marks)
+  ```
+- **Output:** `{'Physics': 67, 'Maths': 87, 'Practical': 48, 'Chemistry': 90}`
+- **Notes:** If a key already exists, `update()` will overwrite its value.
 
 ---
 
-### **5. Sets: Unique and Unordered**
+##### **Method: `setdefault()`**
 
-A set is an **unordered, mutable** collection of **unique, hashable** items.
-
-#### **5.1. Key Characteristics of Sets**
-
-- **Unordered:** Items have no defined order.
-- **Unique:** A set cannot contain duplicate elements.
-- **Mutable:** You can add and remove items from a set.
-- **Hashable Elements:** The items inside a set must be of an immutable type (like numbers, strings, or tuples).
-
-#### **5.2. Why Use a Set?**
-
-1.  **Removing Duplicates:** Quickly get a unique collection of items from another iterable.
-    ```python
-    my_list = [1, 2, 2, 3, 4, 3]
-    unique_items = set(my_list) # -> {1, 2, 3, 4}
-    ```
-2.  **Fast Membership Testing:** Checking if an item is `in` a set is significantly faster than checking if it's `in` a list.
-3.  **Mathematical Set Operations:** Perform union, intersection, difference, etc.
-
-#### **5.3. Creating Sets**
-
-> **Common Mistake:** `empty = {}` creates an empty **dictionary**, not an empty set.
-
-```python
-# Create an empty set
-empty_set = set()
-
-# Create a set with items
-my_set = {1, "hello", 3.14} # Duplicates are automatically removed
-```
-
-#### **5.4. Set Operations and Methods**
-
-| Operation                | Method                        | Operator  | Description                                                            |
-| :----------------------- | :---------------------------- | :-------- | :--------------------------------------------------------------------- | -------------------------------- |
-| **Union**                | `s1.union(s2)`                | `s1       | s2`                                                                    | All items from both sets.        |
-| **Intersection**         | `s1.intersection(s2)`         | `s1 & s2` | Items that exist in both sets.                                         |
-| **Difference**           | `s1.difference(s2)`           | `s1 - s2` | Items in `s1` but not in `s2`.                                         |
-| **Symmetric Difference** | `s1.symmetric_difference(s2)` | `s1 ^ s2` | Items in either set, but not both.                                     |
-| **Add**                  | `s1.add(item)`                | -         | Adds a single item to the set.                                         |
-| **Update**               | `s1.update(iterable)`         | `s1       | = s2`                                                                  | Adds all items from an iterable. |
-| **Remove**               | `s1.remove(item)`             | -         | Removes an item. Raises a `KeyError` if the item is not found.         |
-| **Discard**              | `s1.discard(item)`            | -         | Removes an item. Does **not** raise an error if the item is not found. |
+- **Syntax:** `dict.setdefault(key, default_value)`
+- **Purpose:** A safe way to add a key only if it doesn't already exist.
+- **Logic:**
+  1.  If `key` is in the dictionary, it returns the key's current value.
+  2.  If `key` is **not** in the dictionary, it inserts the key with a value of `default_value` and then returns `default_value`.
+- **Returns:** The value of the key.
+- **Example from material:**
+  ```python
+  person = {'name': 'Phil', 'age': 22}
+  # 'phone' does not exist, so it's added and its value is returned
+  phone = person.setdefault('phone', 90909090)
+  print('person = ', person)
+  print('phone = ', phone)
+  ```
+- **Output:**
+  ```
+  person =  {'name': 'Phil', 'age': 22, 'phone': 90909090}
+  phone =  90909090
+  ```
 
 ---
 
-### **6. Strings: Immutable Sequences of Characters**
+### **5. Sets**
 
-A string is an **ordered and immutable** sequence of characters.
+Sets are unordered, mutable collections of **unique, hashable** elements.
 
-- **Characteristics:** Immutable, ordered, iterable, and indexable.
-- **Operations:** All operations that "modify" a string (like `.replace()` or `.upper()`) return a **new string**; they do not change the original.
-- **Creation:** Use single (`'...'`), double (`"..."`), or triple (`"""..."""` for multi-line) quotes.
-- **Common Methods:**
-  - **Changing Case:** `.upper()`, `.lower()`, `.capitalize()`, `.title()`
-  - **Searching:** `.find(sub)`, `.index(sub)`, `.startswith(sub)`, `.endswith(sub)`
-  - **Modifying/Cleaning:** `.replace(old, new)`, `.strip()`, `.lstrip()`, `.rstrip()`
-  - **Splitting/Joining:**
-    - `.split(separator)`: Splits a string into a list of substrings.
-    - `separator.join(list_of_strings)`: Joins a list of strings into a single string using the separator.
-  - **Checking Content:** `.isalpha()`, `.isdigit()`, `.isalnum()`, `.isspace()`
+- **Key Concepts:**
+  - **Unordered:** You cannot use an index to access items.
+  - **Unique:** Duplicates are automatically removed.
+  - **Hashable Elements:** Items in a set must be immutable (e.g., numbers, strings, tuples). You cannot put a list or another set inside a set. This is a common source of `TypeError`.
+- **MCQ Analysis:**
+  - `set([1,1,2,3,4,2,3,4])` correctly evaluates to `{1, 2, 3, 4}` because sets store only unique elements.
+  - `s = {[1, 2]}` results in an error because lists are mutable and therefore not hashable.
+  - To create an empty set, you **must use `set()`**. Using `{}` creates an empty dictionary.
+
+---
+
+#### **Function Reference: Set Methods**
+
+---
+
+##### **Set Creation & Modification**
+
+- `add(item)`: Adds a single element. `a.add(5)` on `{5, 6, 7}` does nothing as 5 is already present.
+- `update(iterable)` / `|=`: Adds all elements from another iterable.
+- `remove(item)`: Removes an element. **Raises a `KeyError` if the element is not found.**
+- `discard(item)`: Removes an element. **Does not raise an error if the element is not found.** This is the safer option.
+- `pop()`: Removes and returns an **arbitrary** element. You don't know which one you'll get.
+- `clear()`: Removes all elements.
+
+---
+
+##### **Mathematical Set Operations**
+
+- `union(other_set)` or `s1 | s2`: Returns a new set with all elements from both sets.
+- `intersection(other_set)` or `s1 & s2`: Returns a new set with only the elements common to both sets.
+- `difference(other_set)` or `s1 - s2`: Returns a new set with elements in `s1` but **not** in `s2`.
+- `symmetric_difference(other_set)` or `s1 ^ s2`: Returns a new set with elements in either `s1` or `s2`, but **not both**.
+
+---
+
+##### **Set Comparison Methods**
+
+- `issubset(other)` / `<=`: Returns `True` if all elements of the set are in `other`. A set is always a subset of itself.
+- `issuperset(other)` / `>=`: Returns `True` if the set contains all elements of `other`.
+- `isdisjoint(other)`: Returns `True` if the two sets have no common elements.
+
+---
+
+##### **In-place Update Methods**
+
+These methods modify the original set instead of returning a new one.
+
+- `intersection_update(other)` / `&=`
+- `difference_update(other)` / `-=`
+- `symmetric_difference_update(other)` / `^=`
+
+---
+
+### **6. Functions**
+
+A function is a named, reusable block of code that performs a specific task.
+
+- **MCQ Analysis:**
+  - Functions provide **reusability** and **modularity**.
+  - A function is called using its name followed by parentheses: `my_function()`.
+  - Python uses both **call by value** (for immutable types like numbers/strings) and **call by reference** (for mutable types like lists/dicts) - this is more accurately called "pass-by-assignment".
+
+---
+
+#### **Function Reference: Argument Types**
+
+---
+
+##### **Positional and Keyword Arguments**
+
+- **Positional:** Arguments are matched to parameters based on their order. `def func(a, b): ...` called as `func(10, 20)`.
+- **Keyword:** Arguments are matched by parameter name. Order doesn't matter. `func(b=20, a=10)`.
+- **Rule:** Positional arguments **must** come before keyword arguments. `func(10, b=20)` is valid; `func(a=10, 20)` is a `SyntaxError`.
+
+---
+
+##### **Default Arguments**
+
+- **Purpose:** To make an argument optional by providing a default value.
+- **Syntax:** `def say(message, times=1): ...`
+- **Rule:** Parameters with default values must come **after** parameters without default values.
+
+---
+
+##### **Arbitrary Positional Arguments: `*args`**
+
+- **Syntax:** `def my_func(*args): ...`
+- **Purpose:** To allow a function to accept a variable number of positional arguments.
+- **How it Works:** Inside the function, `args` will be a **tuple** containing all the positional arguments passed to it.
+- **Example from material:**
+
+  ```python
+  def f1(*arg):
+    print(type(arg)) # Will print <class 'tuple'>
+    for i in arg:
+      print(i)
+
+  f1(2, 1, 6, 4)
+  ```
+
+---
+
+##### **Arbitrary Keyword Arguments: `**kwargs`\*\*
+
+- **Syntax:** `def my_func(**kwargs): ...`
+- **Purpose:** To allow a function to accept a variable number of keyword arguments.
+- **How it Works:** Inside the function, `kwargs` will be a **dictionary** containing all the keyword arguments.
+- **Example from material:**
+
+  ```python
+  def intro(**data):
+      print(type(data)) # Will print <class 'dict'>
+      for key, value in data.items():
+          print(f"{key} is {value}")
+
+  intro(Firstname="Sita", Age=22)
+  ```
+
+---
+
+#### **Function Reference: Scope (LEGB Rule)**
+
+Scope determines the visibility and lifetime of a variable. Python searches for a variable in this order:
+
+1.  **L**ocal: Inside the current function.
+2.  **E**nclosing: In the scope of any enclosing (outer) functions.
+3.  **G**lobal: In the main body of the script.
+4.  **B**uilt-in: Pre-defined names in Python like `len`, `print`.
+
+- **`global` keyword:** Used inside a function to indicate that you want to **modify** a global variable, not create a new local one.
+- **MCQ Analysis:** The code `i = 0; change(1); print(i)` prints `0`. The `i` inside the `change` function is a _local_ variable. Changing it does not affect the _global_ `i`. If the function had `global i` at the beginning, the output would have been `1`.
 
 ---
 
 ### **7. File Handling**
 
-Files are used for **persistent storage**, meaning the data remains even after the program has finished running.
+(Covered in detail in the provided notes, key functions are `open`, `read`, `readline`, `readlines`, `write`, `writelines`, `close`).
 
-#### **7.1. The Three-Step Process**
+#### **Function Reference: `zip()`**
 
-1.  **Open** the file using the `open()` function.
-2.  **Read or Write** to the file using file object methods.
-3.  **Close** the file using the `.close()` method to free up system resources.
+- **Syntax:** `zip(*iterables)`
+- **Purpose:** To aggregate elements from two or more iterables into an iterator of tuples.
+- **Parameters:**
+  - `*iterables`: One or more iterables (lists, tuples, etc.).
+- **Returns:** A **zip object** (an iterator).
+- **Example from material (Lab 6):**
+  ```python
+  list1 = ['a', 'b', 'c']
+  list2 = [1, 2, 3]
+  result = tuple(zip(list1, list2))
+  print(result)
+  ```
+- **Output:** `(('a', 1), ('b', 2), ('c', 3))`
+- **Notes (Mastery Focus):**
+  - The most important rule: The iterator stops as soon as the **shortest** input iterable is exhausted.
+  - `zip()` is its own inverse when used with the `*` operator: `unzipped = list(zip(*result))` would give you `[('a', 'b', 'c'), (1, 2, 3)]`.
 
-#### **7.2. The `with` Statement (Best Practice)**
+---
 
-The `with` statement is the recommended way to handle files because it **automatically closes the file** for you, even if errors occur.
+### **Mastering the `csv` Module in Python**
 
-```python
-with open("my_file.txt", "w") as f:
-    f.write("Hello, World!")
-# The file is automatically closed here
+#### **1. What is a CSV File and Why Do We Need a Special Module?**
+
+A **CSV (Comma-Separated Values)** file is a simple, plain-text file used to store tabular data, like a spreadsheet or a database table. Each line in the file represents a row of data, and the values (or "fields") within that row are separated by a comma.
+
+**Example `data.csv` file:**
+
+```csv
+Name,Age,Occupation
+John,30,Engineer
+Sara,25,Doctor
+Mike,28,Lawyer
 ```
 
-#### **7.3. File Modes**
+While you _could_ try to read and write these files by manually splitting strings by commas, this approach is fragile and prone to errors. What if a value itself contains a comma?
 
-| Mode   | Description                                                                   |
-| :----- | :---------------------------------------------------------------------------- |
-| `'r'`  | **Read** (default). Fails if the file doesn't exist.                          |
-| `'w'`  | **Write**. Creates a new file. **Overwrites** the file if it exists.          |
-| `'a'`  | **Append**. Creates a new file. Adds new content to the **end** if it exists. |
-| `'r+'` | **Read and Write**.                                                           |
-| `'w+'` | **Write and Read**. Overwrites the file.                                      |
-| `'a+'` | **Append and Read**.                                                          |
+> `"17, Oak Street, New York"`
 
-#### **7.4. Reading and Writing Text Files**
+The `csv` module is Python's built-in solution to handle these complexities robustly. It correctly handles quoting, delimiters, and line endings, ensuring your data is read and written accurately.
 
-| Method                            | Description                                                         |
-| :-------------------------------- | :------------------------------------------------------------------ |
-| **`read()`**                      | Reads the entire file content into a single string.                 |
-| **`readline()`**                  | Reads one line from the file, including the newline character `\n`. |
-| **`readlines()`**                 | Reads all lines into a list of strings.                             |
-| **`write(string)`**               | Writes a single string to the file.                                 |
-| **`writelines(list_of_strings)`** | Writes each string from a list to the file.                         |
-
-#### **7.5. Working with CSV Files**
-
-CSV (Comma-Separated Values) files are used for tabular data. Python's built-in `csv` module makes them easy to work with.
-
-- **`csv.reader(file_object)`:** Creates a reader object to iterate over rows in the CSV file. Each row is a **list of strings**.
-- **`csv.writer(file_object)`:** Creates a writer object to write data to a CSV. Use `.writerow()` for a single row (list) or `.writerows()` for multiple rows (list of lists).
-- **`csv.DictReader(file_object)`:** Similar to `reader`, but each row is an **ordered dictionary**, where the keys are the column headers.
-- **`csv.DictWriter(file_object, fieldnames=...)`:** Writes data from a list of dictionaries. You must specify the `fieldnames` (headers).
-
-**Example: Reading with `DictReader`**
+**To use the module, you must first import it:**
 
 ```python
 import csv
-
-with open('data.csv', 'r') as csvfile:
-    reader = csv.DictReader(csvfile)
-    for row in reader:
-        print(f"Name: {row['Name']}, Age: {row['Age']}")
 ```
 
 ---
 
-### **8. Functions**
+### **2. Reading from CSV Files**
 
-A function is a reusable block of organized code that is used to perform a single, related action.
+There are two primary ways to read a CSV file: as a sequence of lists or as a sequence of dictionaries.
 
-#### **8.1. Why Use Functions?**
+#### **2.1 Reading Rows as Lists with `csv.reader()`**
 
-- **Reusability:** Write code once and use it multiple times.
-- **Modularity:** Break down complex problems into smaller, manageable pieces.
-- **Abstraction:** Hide the complex implementation details and only expose the functionality.
+This is the most direct way to read a CSV. Each row is returned as a **list of strings**.
 
-#### **8.2. Defining and Calling a Function**
+---
 
-- **`def` keyword:** Used to define a function.
-- **`return` keyword:** Used to send a value back from the function. If omitted, the function returns `None`.
-- **Function Call:** To execute the function, you call it by its name followed by parentheses `()`.
+##### **Function: `csv.reader()`**
 
-```python
-# Definition
-def add_numbers(a, b):
-    result = a + b
-    return result
+- **Syntax:** `csv.reader(csvfile, delimiter=',', quotechar='"', ...)`
+- **Purpose:** Creates a reader object that iterates over lines in the given `csvfile`. It parses the CSV data and yields each row as a list of strings.
+- **Parameters:**
+  - `csvfile`: A file object that has been opened (typically in read mode `'r'`).
+  - `delimiter` (optional): The character used to separate fields. Defaults to a comma `,`.
+  - `quotechar` (optional): The character used to quote fields containing special characters (like the delimiter). Defaults to a double quote `"`.
+- **Returns:** A **reader object** (an iterator).
+- **Example from material (Lab 7 / Unit 2 Slides):**
 
-# Call
-sum_value = add_numbers(5, 10) # sum_value is now 15
-```
+  ```python
+  import csv
 
-#### **8.3. Arguments and Parameters**
+  # Best practice: use 'with open' to automatically close the file
+  # CRUCIAL: use newline='' to prevent blank rows in the output on some systems
+  with open('data.csv', mode='r', newline='') as csvfile:
+      # Create a reader object
+      csv_reader = csv.reader(csvfile)
 
-- **Parameter:** The variable listed inside the parentheses in the function **definition** (e.g., `a` and `b` above).
-- **Argument:** The actual value that is sent to the function when it is **called** (e.g., `5` and `10` above).
+      # A common pattern is to skip the header row
+      header = next(csv_reader)
+      print(f"Header: {header}")
 
-#### **8.4. Types of Arguments**
+      # Iterate over the remaining rows
+      print("Data Rows:")
+      for row in csv_reader:
+          # Each 'row' is a list of strings
+          print(row)
+  ```
 
-1.  **Positional Arguments:** The default type. Arguments are matched to parameters based on their position. The order matters.
-2.  **Keyword Arguments:** You specify which parameter the argument is for by using the parameter name. The order does not matter.
+- **Input File (`data.csv`):**
+  ```csv
+  Name,Age,Occupation
+  John,30,Engineer
+  Sara,25,Doctor
+  ```
+- **Output:**
+  ```
+  Header: ['Name', 'Age', 'Occupation']
+  Data Rows:
+  ['John', '30', 'Engineer']
+  ['Sara', '25', 'Doctor']
+  ```
+- **Notes (Mastery Focus):**
+  - **Data Type:** Notice that all values in the list, including `'30'` and `'25'`, are **strings**. You must manually convert them to integers (`int()`) or floats (`float()`) if you need to perform calculations.
+  - **Accessing Data:** You access data by its index: `row[0]` for the name, `row[1]` for the age, etc. This can be hard to maintain if the column order changes.
 
-    > **Rule:** Keyword arguments must come _after_ positional arguments in a function call.
-    > `my_func(10, y=20)` is valid. `my_func(x=10, 20)` is **invalid**.
+---
 
-3.  **Default Arguments:** You can provide a default value for a parameter in the function definition. This makes the argument optional when the function is called.
+#### **2.2 Reading Rows as Dictionaries with `csv.DictReader()`**
 
-    > **Rule:** Default parameters must come _after_ non-default parameters in the function definition.
+This is a more robust and readable way to process CSV data. Each row is returned as a **dictionary**, where the keys are the column headers.
 
-4.  **Arbitrary Positional Arguments (`*args`):** Allows a function to accept any number of positional arguments. These arguments are collected into a **tuple**.
-5.  **Arbitrary Keyword Arguments (`**kwargs`):** Allows a function to accept any number of keyword arguments. These arguments are collected into a **dictionary\*\*.
+---
 
-**Example of all types:**
+##### **Function: `csv.DictReader()`**
 
-```python
-def example_func(a, b, c='default', *args, **kwargs):
-    print(f"a (positional): {a}")
-    print(f"b (positional): {b}")
-    print(f"c (default): {c}")
-    print(f"args (tuple): {args}")
-    print(f"kwargs (dict): {kwargs}")
+- **Syntax:** `csv.DictReader(csvfile, fieldnames=None, ...)`
+- **Purpose:** Creates a reader object that works like a regular reader but maps the information in each row to a `dict`.
+- **Parameters:**
+  - `csvfile`: A file object opened in read mode.
+  - `fieldnames` (optional): A list of strings to be used as the dictionary keys. If omitted, the values in the **first row** of the file are used as the keys.
+- **Returns:** A **`DictReader` object** (an iterator).
+- **Example from material (Unit 2 Slides):**
 
-# Function call
-example_func(1, 2, 'custom', 4, 5, name='Alice', city='New York')
-```
+  ```python
+  import csv
 
-#### **8.5. Scope and the LEGB Rule**
+  with open('data.csv', mode='r', newline='') as csvfile:
+      # Create a DictReader object. It automatically uses the first row as keys.
+      csv_reader = csv.DictReader(csvfile)
 
-Scope determines the visibility of a variable. Python searches for a variable in the following order:
+      print("Data Rows (as Dictionaries):")
+      for row in csv_reader:
+          # Each 'row' is a dictionary
+          print(row)
+          # Now you can access data by name, which is much clearer!
+          print(f"Processing {row['Name']} who is a {row['Occupation']}.")
+  ```
 
-1.  **L - Local:** The innermost scope, inside the current function.
-2.  **E - Enclosing:** The scope of any enclosing functions (for nested functions).
-3.  **G - Global:** The top-level scope of the module/script.
-4.  **B - Built-in:** Python's built-in names (e.g., `len`, `print`).
+- **Input File (`data.csv`):** (Same as before)
+- **Output:**
+  ```
+  Data Rows (as Dictionaries):
+  {'Name': 'John', 'Age': '30', 'Occupation': 'Engineer'}
+  Processing John who is a Engineer.
+  {'Name': 'Sara', 'Age': '25', 'Occupation': 'Doctor'}
+  Processing Sara who is a Doctor.
+  ```
+- **Notes (Mastery Focus):**
+  - **Why it's better:** Using `DictReader` makes your code more readable and resilient to change. If someone reorders the columns in your CSV file, your code will still work perfectly as long as the header names don't change. With `csv.reader`, your code would break.
+  - The header row is automatically consumed and is not yielded as a data row.
 
-- **`global` keyword:** To modify a global variable from within a function, you must declare it with `global`.
-- **`nonlocal` keyword:** To modify a variable in an enclosing scope (but not global), you use `nonlocal`.
+---
+
+### **3. Writing to CSV Files**
+
+#### **3.1 Writing Lists to Rows with `csv.writer()`**
+
+This is the counterpart to `csv.reader()`. You provide it with a list of values, and it writes them as a single CSV row.
+
+---
+
+##### **Function: `csv.writer()`**
+
+- **Syntax:** `csv.writer(csvfile, delimiter=',', ...)`
+- **Purpose:** Creates a writer object responsible for converting the user’s data into a delimited string on the given file-like object.
+- **Parameters:**
+  - `csvfile`: A file object opened in a write mode (`'w'`, `'a'`).
+- **Returns:** A **writer object**.
+- **Methods of the Writer Object:**
+  - `writerow(list)`: Writes a single row from a list of values.
+  - `writerows(list_of_lists)`: Writes multiple rows from a list of lists.
+- **Example from material (Unit 2 Slides):**
+
+  ```python
+  import csv
+
+  # Data to be written (a list of lists)
+  header = ['Name', 'Age', 'Occupation']
+  data_rows = [
+      ['John', 30, 'Engineer'],
+      ['Sara', 25, 'Doctor'],
+      ['Mike', 28, 'Lawyer']
+  ]
+
+  with open('output.csv', mode='w', newline='') as csvfile:
+      # Create a writer object
+      csv_writer = csv.writer(csvfile)
+
+      # Write the header row
+      csv_writer.writerow(header)
+
+      # Write all the data rows at once
+      csv_writer.writerows(data_rows)
+
+  print("output.csv has been created.")
+  ```
+
+- **Resulting File (`output.csv`):**
+  ```csv
+  Name,Age,Occupation
+  John,30,Engineer
+  Sara,25,Doctor
+  Mike,28,Lawyer
+  ```
+
+---
+
+#### **3.2 Writing Dictionaries to Rows with `csv.DictWriter()`**
+
+This is the recommended approach for writing data, as it is more robust. You work with a list of dictionaries.
+
+---
+
+##### **Function: `csv.DictWriter()`**
+
+- **Syntax:** `csv.DictWriter(csvfile, fieldnames)`
+- **Purpose:** Creates an object which operates like a regular writer but maps dictionaries onto output rows.
+- **Parameters:**
+  - `csvfile`: A file object opened in a write mode.
+  - `fieldnames`: A **required** list of strings that specifies the order in which values from the dictionaries are written. It defines the header and the column order.
+- **Returns:** A **`DictWriter` object**.
+- **Methods of the `DictWriter` Object:**
+  - `writeheader()`: Writes the header row using the `fieldnames`.
+  - `writerow(dictionary)`: Writes a single row from a dictionary.
+  - `writerows(list_of_dictionaries)`: Writes multiple rows.
+- **Example from material (Unit 2 Slides):**
+
+  ```python
+  import csv
+
+  # Data to be written (a list of dictionaries)
+  data = [
+      {'Name': 'John', 'Age': 30, 'Occupation': 'Engineer'},
+      {'Name': 'Sara', 'Age': 25, 'Occupation': 'Doctor'},
+      {'Name': 'Mike', 'Age': 28, 'Occupation': 'Lawyer'}
+  ]
+
+  # The fieldnames list defines the column order in the CSV
+  fieldnames = ['Name', 'Age', 'Occupation']
+
+  with open('output_dict.csv', mode='w', newline='') as csvfile:
+      # Create a DictWriter object
+      csv_writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+      # Step 1: Write the header
+      csv_writer.writeheader()
+
+      # Step 2: Write the data rows
+      csv_writer.writerows(data)
+
+  print("output_dict.csv has been created.")
+  ```
+
+- **Resulting File (`output_dict.csv`):** (Same as the previous example, but created in a more maintainable way)
+  ```csv
+  Name,Age,Occupation
+  John,30,Engineer
+  Sara,25,Doctor
+  Mike,28,Lawyer
+  ```
+- **Notes (Mastery Focus):** `DictWriter` ensures your output columns are always in the same order, defined by `fieldnames`, regardless of the key order in your individual dictionaries.
+
+---
+
+### **4. Crucial Best Practice: `newline=''`**
+
+When you open a file to be used by the `csv` module, you **must** specify `newline=''`.
+
+- **The Problem:** Different operating systems use different characters to signify the end of a line (e.g., `\n` on Linux/macOS, `\r\n` on Windows). When writing, Python's regular file handling might convert `\n` to `\r\n` on Windows. The `csv` module also handles line endings and might write `\r\n`. The result is that you get `\r\r\n` for each line, which appears as a **blank row** between every data row in your CSV file.
+- **The Solution:** `newline=''` tells Python's file handler _not_ to touch the line endings and to let the `csv` module manage them exclusively. This makes your code work correctly on all operating systems.
+
+---
+
+### **5. Summary: `reader` vs. `DictReader` and `writer` vs. `DictWriter`**
+
+| Object               | Reads/Writes Data As... | Access By                | Key Advantage                                         |
+| :------------------- | :---------------------- | :----------------------- | :---------------------------------------------------- |
+| **`csv.reader`**     | Lists of strings        | Index (`row[0]`)         | Simple and direct.                                    |
+| **`csv.DictReader`** | Dictionaries            | Key name (`row['Name']`) | Highly readable, robust to column order changes.      |
+| **`csv.writer`**     | Lists of values         | N/A                      | Simple for writing basic lists.                       |
+| **`csv.DictWriter`** | Dictionaries            | N/A                      | Ensures consistent column order, highly maintainable. |
